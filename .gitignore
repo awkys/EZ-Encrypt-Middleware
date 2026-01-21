@@ -1,0 +1,15 @@
+# Secrets
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Go
+bin/
+*.exe
+*.test
+vendor/
+go.work
