@@ -19,15 +19,6 @@ type Config struct {
 	DebugMode                 string
 	AllowedPaymentNotifyPaths string
 	PathPrefix                string
-
-	// OSS 配置 (可选，支持 S3/R2/Aliyun OSS)
-	OSSEnabled   bool   // 是否启用 OSS 订阅分发
-	OSSEndpoint  string // S3 兼容端点 (如 https://xxx.r2.cloudflarestorage.com)
-	OSSRegion    string // 区域 (如 auto, us-east-1)
-	OSSAccessKey string // Access Key ID
-	OSSSecretKey string // Secret Access Key
-	OSSBucket    string // Bucket 名称
-	OSSCdnDomain string // CDN 域名 (如 https://sub-cdn.bnsrf.com)
 }
 
 var AppConfig *Config
@@ -49,15 +40,6 @@ func LoadConfig() {
 		DebugMode:                 getEnv("DEBUG_MODE", "false"),
 		AllowedPaymentNotifyPaths: getEnv("ALLOWED_PAYMENT_NOTIFY_PATHS", ""),
 		PathPrefix:                getEnv("PATH_PREFIX", ""),
-
-		// OSS 配置
-		OSSEnabled:   getEnv("OSS_ENABLED", "false") == "true",
-		OSSEndpoint:  getEnv("OSS_ENDPOINT", ""),
-		OSSRegion:    getEnv("OSS_REGION", "auto"),
-		OSSAccessKey: getEnv("OSS_ACCESS_KEY", ""),
-		OSSSecretKey: getEnv("OSS_SECRET_KEY", ""),
-		OSSBucket:    getEnv("OSS_BUCKET", ""),
-		OSSCdnDomain: getEnv("OSS_CDN_DOMAIN", ""),
 	}
 
 	if AppConfig.BackendAPIURL == "" {
@@ -66,11 +48,6 @@ func LoadConfig() {
 
 	if AppConfig.AESKey == "" {
 		log.Fatal("错误: AES_KEY 未在 .env 文件中设置")
-	}
-
-	// OSS 配置日志
-	if AppConfig.OSSEnabled {
-		log.Printf("OSS 订阅分发已启用: %s", AppConfig.OSSCdnDomain)
 	}
 
 	log.Println("配置加载成功")
@@ -127,7 +104,7 @@ func (c *Config) IsPaymentNotifyPath(path string) bool {
 		return false
 	}
 
-	// Check if path is in allowed list
+	// This is a placeholder as I'll view the file first.
 	for _, allowed := range allowedPaths {
 		if allowed == path {
 			return true

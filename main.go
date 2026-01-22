@@ -2,7 +2,6 @@ package main
 
 import (
 	"EZ-Encrypt-Middleware/config"
-	"EZ-Encrypt-Middleware/oss"
 	"EZ-Encrypt-Middleware/proxy"
 	"log"
 	"net/http"
@@ -17,12 +16,6 @@ import (
 func main() {
 	// Load configuration
 	config.LoadConfig()
-
-	// Initialize OSS client (optional)
-	if err := oss.InitOss(); err != nil {
-		log.Printf("警告: OSS 初始化失败: %v", err)
-	}
-
 
 	// Set Gin mode
 	if config.AppConfig.DebugMode != "true" {
